@@ -1,6 +1,12 @@
 package com.example.microservices.domain;
 
+import io.quarkus.hibernate.reactive.panache.PanacheEntityBase;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
 import java.time.Instant;
+
+
 
 public class Order {
 
@@ -65,5 +71,15 @@ public class Order {
 
     public UserId getUserId() {
         return userId;
+    }
+
+    public static Order rehydrate(
+            OrderId id,
+            UserId userId,
+            Money totalPrice,
+            OrderStatus status,
+            Instant createdAt
+    ) {
+        return new Order(id, userId, totalPrice, status, createdAt);
     }
 }
